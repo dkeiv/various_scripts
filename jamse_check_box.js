@@ -1,6 +1,4 @@
-const checklist = document.querySelectorAll('form.togglecompletion');
-
-checklist.forEach(form => {
+document.querySelectorAll('form.togglecompletion').forEach(form => {
   if(!isCompleted(form)) {
     form.requestSubmit();
   }
