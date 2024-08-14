@@ -18,23 +18,25 @@
   const ENCODED_TOKEN = encodeURIComponent(TOKEN); // some utf8 issue
 
   /* main */
-  const titleList = [];
-  const query = 'div.single-section span.instancename';
-  const items = document.querySelectorAll(query);
+  function clickHandle() {
+    const titleList = [];
+    const query = 'div.single-section span.instancename';
+    const items = document.querySelectorAll(query);
 
-  items.forEach((item) => {
-    titleList.push(item.firstChild.data);
-  });
+    items.forEach((item) => {
+      titleList.push(item.firstChild.data);
+    });
 
-  titleList.forEach((title) => {
-    postToKen(title)
-      .then((res) => {
-        console.log(`success: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(`error: ${err}`);
-      });
-  });
+    titleList.forEach((title) => {
+      postToKen(title)
+        .then((res) => {
+          console.log(`success: ${res.status}`);
+        })
+        .catch((err) => {
+          console.log(`error: ${err}`);
+        });
+    });
+  }
 
   async function postToKen(value) {
     const url = `https://ken-backend.codegym.vn/boards/${BOARD_ID}/tasks`;
@@ -62,4 +64,11 @@
       body: payload,
     });
   }
+
+  const section = document.querySelector('h3.sectionname');
+  const kenBtn = document.createElement('button');
+
+  kenBtn.innerHTML = 'to Ken';
+  kenBtn.addEventListener('click', () => clickHandle(kenBtn));
+  section.appendChild(kenBtn);
 })();
