@@ -15,6 +15,7 @@
   const TIME_ESTIMATED = 0;
   const COLOR = '';
   const TOKEN = '';
+  const ENCODED_TOKEN = encodeURIComponent(TOKEN); // some utf8 issue
 
   /* main */
   const titleList = [];
@@ -40,7 +41,7 @@
 
     const header = new Headers();
     header.append('Accept', 'application/json, text/plain, */*');
-    header.append('Authorization', `Bearer ${TOKEN}`);
+    header.append('Authorization', `Bearer ${ENCODED_TOKEN}`);
     header.append('Content-type', 'application/json');
 
     const payload = JSON.stringify({

@@ -48,11 +48,12 @@
     });
   }
 
-  function handleClick(node) {
-    const items = node.querySelectorAll('span.instancename');
+  function handleClick(section) {
+    const units = section.querySelectorAll('span.instancename');
     const titleList = [];
-    items.forEach((item) => {
-      titleList.push(item.firstChild.data);
+    units.forEach((unit) => {
+      const unitTitle = unit.firstChild.data;
+      units.push(unitTitle);
     });
 
     titleList.forEach((title) => {
@@ -66,15 +67,15 @@
     });
   }
 
-  function makeKenBtn(node) {
+  function makeKenBtn(section) {
     const btn = document.createElement('button');
     btn.innerHTML = 'to Ken';
-    btn.addEventListener('click', () => handleClick(node));
+    btn.addEventListener('click', () => handleClick(section));
     return btn;
   }
 
-  document.querySelectorAll('li.section:not(:first-child)').forEach((node) => {
-    const kenBtn = makeKenBtn(node);
+  document.querySelectorAll('li.section:not(:first-child)').forEach((section) => {
+    const kenBtn = makeKenBtn(section);
     node.appendChild(kenBtn);
   });
 })();
