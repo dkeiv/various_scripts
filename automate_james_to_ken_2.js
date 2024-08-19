@@ -17,10 +17,8 @@
 
   const TOKEN = '';
   const ENCODED_TOKEN = encodeURIComponent(TOKEN); // some utf8 issue
-  console.log(ENCODED_TOKEN);
 
   /* main */
-
   async function postToKen(value) {
     const url = `https://ken-backend.codegym.vn/boards/${BOARD_ID}/tasks`;
 
@@ -50,19 +48,27 @@
 
   function handleClick(section) {
     const units = section.querySelectorAll('span.instancename');
-    const titleList = [];
-    units.forEach((unit) => {
-      const unitTitle = unit.firstChild.data;
-      units.push(unitTitle);
-    });
 
-    titleList.forEach((title) => {
+    units.forEach((unit) => {
+      const title = unit.firstChild.data;
+
       postToKen(title)
         .then((res) => {
-          console.log(`status: ${res.status}`);
+          const msg = ` => status: ${res.status}`;
+
+          const status = document.createElement('span');
+          status.innerHTML = msg;
+          status.style.color = 'Indigo';
+          unit.appendChild(status);
+
+          setTimeout(() => {
+            (status.style.display = 'none'), 500;
+          });
+
+          console.log(msg);
         })
         .catch((err) => {
-          console.log(`error: ${err}`);
+          console.log(err);
         });
     });
   }
@@ -74,8 +80,10 @@
     return btn;
   }
 
-  document.querySelectorAll('li.section:not(:first-child)').forEach((section) => {
-    const kenBtn = makeKenBtn(section);
-    node.appendChild(kenBtn);
-  });
+  document
+    .querySelectorAll('li.section:not(:first-child)')
+    .forEach((section) => {
+      const kenBtn = makeKenBtn(section);
+      node.appendChild(kenBtn);
+    });
 })();
